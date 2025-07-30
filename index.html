@@ -215,15 +215,17 @@
             <h1 class="text-lg font-bold text-slate-800">
                 Ikhwanul Muslim Effendie
             </h1>
-            <div class="hidden md:flex space-x-6">
-                <a href="#summary" class="text-slate-600 hover:text-blue-600 transition">Summary</a>
-                <a href="#skills" class="text-slate-600 hover:text-blue-600 transition">Skills</a>
-                <a href="#experience" class="text-slate-600 hover:text-blue-600 transition">Experience</a>
-                <a href="#education" class="text-slate-600 hover:text-blue-600 transition">Education</a>
+            <div class="flex items-center space-x-6">
+                <div class="hidden md:flex space-x-6">
+                    <a href="#summary" class="text-slate-600 hover:text-blue-600 transition">Summary</a>
+                    <a href="#skills" class="text-slate-600 hover:text-blue-600 transition">Skills</a>
+                    <a href="#experience" class="text-slate-600 hover:text-blue-600 transition">Experience</a>
+                    <a href="#education" class="text-slate-600 hover:text-blue-600 transition">Education</a>
+                </div>
+                <button id="themeToggle" class="p-2 rounded-full bg-slate-200 hover:bg-slate-300 dark:bg-gray-700 dark:hover:bg-gray-600 transition text-xl">
+                        ☀️
+                </button>
             </div>
-            <button id="themeToggle" class="p-2 rounded-full bg-slate-200 hover:bg-slate-300 dark:bg-gray-700 dark:hover:bg-gray-600 transition text-xl">
-                    ☀️
-            </button>
         </nav>
     </header>
 
@@ -551,6 +553,26 @@
                 createSkillsChart(isDarkMode);
             }
         }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            timelineItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    item.classList.toggle('open');
+                });
+            });
+
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+                document.getElementById('themeToggle').textContent = '�';
+                createSkillsChart(true); // Create chart in dark mode
+            } else {
+                createSkillsChart(false); // Create chart in light mode
+            }
+
+            document.getElementById('themeToggle').addEventListener('click', toggleNightMode);
+        });
     </script>
 </body>
 </html>
