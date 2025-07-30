@@ -43,6 +43,82 @@
                 height: 500px;
             }
         }
+            ul.cloud {
+              list-style: none;
+              padding-left: 0;
+              display: flex;
+              flex-wrap: wrap;
+              align-items: center;
+              justify-content: center;
+              line-height: 2.75rem;
+              width: 450px;
+            }
+            
+            ul.cloud a {
+              /*   
+              Not supported by any browser at the moment :(
+              --size: attr(data-weight number); 
+              */
+              --size: 4;
+              --color: #a33;
+              color: var(--color);
+              font-size: calc(var(--size) * 0.25rem + 0.5rem);
+              display: block;
+              padding: 0.125rem 0.25rem;
+              position: relative;
+              text-decoration: none;
+              /* 
+              For different tones of a single color
+              opacity: calc((15 - (9 - var(--size))) / 15); 
+              */
+            }
+            
+            ul.cloud a[data-weight="1"] { --size: 1; }
+            ul.cloud a[data-weight="2"] { --size: 2; }
+            ul.cloud a[data-weight="3"] { --size: 3; }
+            ul.cloud a[data-weight="4"] { --size: 4; }
+            ul.cloud a[data-weight="5"] { --size: 6; }
+            ul.cloud a[data-weight="6"] { --size: 8; }
+            ul.cloud a[data-weight="7"] { --size: 10; }
+            ul.cloud a[data-weight="8"] { --size: 13; }
+            ul.cloud a[data-weight="9"] { --size: 16; }
+            
+            ul[data-show-value] a::after {
+              content: " (" attr(data-weight) ")";
+              font-size: 1rem;
+            }
+            
+            ul.cloud li:nth-child(2n+1) a { --color: #181; }
+            ul.cloud li:nth-child(3n+1) a { --color: #33a; }
+            ul.cloud li:nth-child(4n+1) a { --color: #c38; }
+            
+            ul.cloud a:focus {
+              outline: 1px dashed;
+            }
+            
+            ul.cloud a::before {
+              content: "";
+              position: absolute;
+              top: 0;
+              left: 50%;
+              width: 0;
+              height: 100%;
+              background: var(--color);
+              transform: translate(-50%, 0);
+              opacity: 0.15;
+              transition: width 0.25s;
+            }
+            
+            ul.cloud a:focus::before,
+            ul.cloud a:hover::before {
+              width: 100%;
+            }
+            
+            @media (prefers-reduced-motion) {
+              ul.cloud * {
+                transition: none !important;
+              }
+            }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-700">
@@ -87,10 +163,25 @@
 
         <section id="skills" class="py-16 bg-slate-100 rounded-2xl">
             <h2 class="text-3xl font-bold text-center text-slate-900 mb-2">Technical Skills</h2>
-            <p class="text-center text-slate-600 mb-10">This chart provides a visual overview of my technical competencies. Hover over the bars to see more details about each skill.</p>
-            <div class="chart-container">
-                <canvas id="skillsChart"></canvas>
-            </div>
+            <p class="text-center text-slate-600 mb-10">This section contains overview of my technical competencies.</p>
+            <ul class="cloud" role="navigation" aria-label="Webdev tag cloud">
+              <li><a data-weight="4" href="/tag/JavaScript">JavaScript</a></li>
+              <li><a data-weight="2" href="/tag/HTML">HTML</a></li>
+              <li><a data-weight="5" href="/tag/CSS">CSS</a></li>
+              <li><a data-weight="8" href="/tag/NextJS">NextJS</a></li>
+              <li><a data-weight="6" href="/tag/GoogleAds">Google Ads</a></li>
+              <li><a data-weight="4" href="/tag/api">API</a></li>
+              <li><a data-weight="5" href="/tag/GoogleAnalytics">Google Analytics</a></li>
+              <li><a data-weight="6" href="/tag/googletagmanager">Google Tag Manager</a></li>
+              <li><a data-weight="3" href="/tag/rest">Rest</a></li>
+              <li><a data-weight="9" href="/tag/SFCRM">SalesForce CRM</a></li>
+              <li><a data-weight="3" href="/tag/Linux">Linux</a></li>
+              <li><a data-weight="7" href="/tag/react">React</a></li>
+              <li><a data-weight="8" href="/tag/docker">Docker</a></li>
+              <li><a data-weight="1" href="/tag/cache">Cache</a></li>
+              <li><a data-weight="3" href="/tag/cdn">CDN (Cloudflare)</a></li>
+            </ul>
+            
         </section>
 
         <section id="experience" class="py-16">
