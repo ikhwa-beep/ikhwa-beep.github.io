@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ikhwanul Muslim Effendie | Interactive Resume</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Cool Slate -->
+    <!-- Application Structure Plan: A single-page, vertical-scrolling layout with a navigation header. The structure is thematic: Hero, Summary, Skills, Experience, Education, and Volunteering. This flow logically guides a recruiter through the candidate's story, from a high-level summary to detailed experiences. Key interactions include a hover-enabled skills chart for a quick competency overview and a clickable timeline for experience, allowing users to drill into details without being overwhelmed. This design prioritizes scannability and targeted information retrieval, which is crucial for busy recruiters. -->
+    <!-- Visualization & Content Choices: 
+        - Summary -> Inform -> Text Block -> Static -> Clear, concise introduction.
+        - Skills -> Organize/Compare -> Horizontal Bar Chart (Chart.js) -> Hover for details -> Visually breaks down technical competencies into logical groups, more engaging than a simple list. Chart.js on canvas is used for interactivity without SVG.
+        - Experience -> Change/Inform -> Clickable Vertical Timeline (HTML/CSS/JS) -> Click to expand details -> Shows career progression effectively. The interactive reveal keeps the UI clean and user-focused.
+        - Education/Volunteering -> Inform -> Card Layout (HTML/CSS) -> Static -> Cleanly separates and presents supplementary information.
+        - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .timeline-item .details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+        .timeline-item.open .details {
+            max-height: 1000px;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+            max-height: 50vh;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 500px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-700">
+
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-3 max-w-7xl flex justify-between items-center">
+            <h1 class="text-lg font-bold text-slate-800">
+                Ikhwanul Muslim Effendie
+            </h1>
+            <div class="hidden md:flex space-x-6">
+                <a href="#summary" class="text-slate-600 hover:text-blue-600 transition">Summary</a>
+                <a href="#skills" class="text-slate-600 hover:text-blue-600 transition">Skills</a>
+                <a href="#experience" class="text-slate-600 hover:text-blue-600 transition">Experience</a>
+                <a href="#education" class="text-slate-600 hover:text-blue-600 transition">Education</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-12 max-w-7xl">
+
+        <section id="hero" class="text-center py-16">
+            <h1 class="text-4xl md:text-6xl font-bold text-slate-900">Ikhwanul Muslim Effendie</h1>
+            <p class="text-xl md:text-2xl text-slate-600 mt-4">Front-End Developer & Technical Solution Specialist</p>
+            <div class="mt-8 flex justify-center items-center space-x-6">
+                <a href="mailto:ikhwanul.effendie@gmail.com" class="text-blue-600 hover:underline">ikhwanul.effendie@gmail.com</a>
+                <span class="text-slate-300">|</span>
+                <a href="https://linkedin.com/in/ikhwanul-muslim-effendie/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">LinkedIn Profile</a>
+            </div>
+            <p class="mt-12 max-w-4xl mx-auto text-lg text-slate-600">
+                This interactive application presents my professional background and skills. Scroll to explore my journey, hover over the skills chart for more details, and click on timeline entries to expand my work experience.
+            </p>
+        </section>
+
+        <section id="summary" class="py-16">
+            <h2 class="text-3xl font-bold text-center text-slate-900 mb-8">Professional Summary</h2>
+            <div class="max-w-4xl mx-auto bg-white p-8 rounded-xl shadow-md">
+                <p class="text-lg leading-relaxed">
+                    Dedicated, technically-minded, and customer-focused Technical Solutions Specialist and Front-End Software Developer with a proven track record in delivering comprehensive technology solutions to meet diverse business needs. Proficient in analyzing complex technical and non-technical challenges, Support Operations, and providing expert guidance for diverse clients to ensure seamless implementation of cutting-edge technologies. Strong communicator with a passion to drive impactful change in modern and digital experience industries.
+                </p>
+            </div>
+        </section>
+
+        <section id="skills" class="py-16 bg-slate-100 rounded-2xl">
+            <h2 class="text-3xl font-bold text-center text-slate-900 mb-2">Technical Skills</h2>
+            <p class="text-center text-slate-600 mb-10">This chart provides a visual overview of my technical competencies. Hover over the bars to see more details about each skill.</p>
+            <div class="chart-container">
+                <canvas id="skillsChart"></canvas>
+            </div>
+        </section>
+
+        <section id="experience" class="py-16">
+            <h2 class="text-3xl font-bold text-center text-slate-900 mb-12">Professional Experience</h2>
+            <div class="relative max-w-4xl mx-auto">
+                <div class="absolute left-1/2 -translate-x-1/2 h-full w-0.5 bg-slate-200"></div>
+                
+                <div class="timeline-item mt-8 cursor-pointer group">
+                    <div class="flex items-center">
+                        <div class="w-1/2 pr-8 text-right">
+                            <h3 class="text-xl font-bold text-slate-800">Front End Developer (Technical Solution Specialist)</h3>
+                            <p class="text-slate-600">TDCX (on behalf of Google)</p>
+                            <time class="text-sm text-slate-500">10/2021 - Present</time>
+                        </div>
+                        <div class="w-1/2 pl-8 relative">
+                            <div class="absolute -left-3.5 top-1/2 -translate-y-1/2 w-7 h-7 bg-white border-4 border-blue-500 rounded-full"></div>
+                            <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition">
+                                <p class="font-semibold">Click to see details ▼</p>
+                                <div class="details mt-4 text-slate-600 space-y-2">
+                                    <ul class="list-disc pl-5 space-y-2">
+                                        <li>Delivering, implementing, integrating, and maintaining advanced tracking pixels, tags, and custom codes across diverse websites and digital platforms, optimizing advertisers’ online campaign performance and digital strategy.</li>
+                                        <li>Diagnosed and resolved complex technical issues for advertisers and clients, providing high-quality consultations within tight SLAs and KPIs.</li>
+                                        <li>Provided detailed Proofs of Concept and expert assistance in resolving advanced website coding challenges (HTML, JavaScript, CSS, Cookies, Sessions).</li>
+                                        <li>Proactively contributed to internal tool and methodology enhancements to improve team deliverables.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item mt-8 cursor-pointer group">
+                    <div class="flex items-center">
+                        <div class="w-1/2 pr-8 text-right">
+                            <h3 class="text-xl font-bold text-slate-800">System Developer Intern</h3>
+                            <p class="text-slate-600">Huacomm Telecommunications</p>
+                            <time class="text-sm text-slate-500">06/2021 - 09/2021</time>
+                        </div>
+                        <div class="w-1/2 pl-8 relative">
+                            <div class="absolute -left-3.5 top-1/2 -translate-y-1/2 w-7 h-7 bg-white border-4 border-blue-500 rounded-full"></div>
+                            <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition">
+                                <p class="font-semibold">Click to see details ▼</p>
+                                <div class="details mt-4 text-slate-600 space-y-2">
+                                    <ul class="list-disc pl-5 space-y-2">
+                                        <li>Engaged in over five concurrent system development endeavors, focusing on cross-platform enterprise software solutions.</li>
+                                        <li>Re-designed, deployed, and tested open-source ERP and HRMS software using Virtualization and Docker on Linux servers.</li>
+                                        <li>Managed deployment and administration of diverse enterprise systems, websites, e-commerce, and databases.</li>
+                                        <li>Handled API usage, documentation, and integration for in-house software development projects.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item mt-8 cursor-pointer group">
+                    <div class="flex items-center">
+                        <div class="w-1/2 pr-8 text-right">
+                            <h3 class="text-xl font-bold text-slate-800">Operations Intern</h3>
+                            <p class="text-slate-600">Sika Kimia</p>
+                            <time class="text-sm text-slate-500">07/2020 - 10/2020</time>
+                        </div>
+                        <div class="w-1/2 pl-8 relative">
+                            <div class="absolute -left-3.5 top-1/2 -translate-y-1/2 w-7 h-7 bg-white border-4 border-blue-500 rounded-full"></div>
+                            <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition">
+                                <p class="font-semibold">Click to see details ▼</p>
+                                <div class="details mt-4 text-slate-600 space-y-2">
+                                    <ul class="list-disc pl-5 space-y-2">
+                                        <li>Enhanced liquid production packaging process efficiency by up to 50% by designing and developing a semi-automated filling system.</li>
+                                        <li>Assisted the process engineering team with facility improvement projects, providing CAD drawings and installation support.</li>
+                                        <li>Re-engineered and performed corrective maintenance on various electronic machinery, including PLCs and industrial robotics.</li>
+                                        <li>Developed and managed a preventive maintenance system for facility equipment.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="education" class="py-16 bg-slate-100 rounded-2xl">
+            <h2 class="text-3xl font-bold text-center text-slate-900 mb-12">Education & Volunteering</h2>
+            <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-8">
+                
+                <div class="bg-white p-8 rounded-xl shadow-md">
+                    <h3 class="text-xl font-bold text-slate-800">Universiti Teknologi Malaysia</h3>
+                    <p class="text-slate-600 font-medium">Bachelor of Engineering (B.Eng) in Electronic System</p>
+                    <p class="text-sm text-slate-500">09/2017 - 08/2021 | CGPA: 3.25 / 4.0</p>
+                    <ul class="mt-4 list-disc pl-5 text-slate-600 space-y-1">
+                        <li>Thesis: Automated Weighting Scale for Calf using IoT.</li>
+                        <li>Exchange Semester: Project Management at Istanbul Aydin University.</li>
+                        <li>Dean's List (3.92 GPA) in 7th semester.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-md">
+                    <h3 class="text-xl font-bold text-slate-800">Nurul Fikri Boarding School Lembang</h3>
+                    <p class="text-slate-600 font-medium">Senior High School</p>
+                    <p class="text-sm text-slate-500">05/2014 - 05/2017 | CGPA: 84 / 100</p>
+                     <ul class="mt-4 list-disc pl-5 text-slate-600 space-y-1">
+                        <li>TOEFL IBT Certification: Score 73/120.</li>
+                        <li>Arabic Course Certification with excellent result.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-md md:col-span-2">
+                     <h3 class="text-xl font-bold text-slate-800">Volunteering</h3>
+                     <div class="mt-4 space-y-2">
+                        <p><span class="font-semibold text-slate-700">Deputy Chair for Communication & Information</span> at Representative Body of National Committee of Indonesian Youth in Malaysia (01/2022-Present)</p>
+                        <p><span class="font-semibold text-slate-700">Committee Member</span> for Overseas Indonesia General Election Commission in Malaysia (12/2023-04/2024)</p>
+                     </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-800 text-slate-300 text-center py-6">
+        <p>&copy; 2024 Ikhwanul Muslim Effendie. Interactive resume created to showcase skills and experience.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            timelineItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    item.classList.toggle('open');
+                });
+            });
+
+            const ctx = document.getElementById('skillsChart').getContext('2d');
+            const skillsChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: [
+                        'JavaScript', 'HTML', 'CSS', 'Web Development',
+                        'Google Ads', 'Google Analytics', 'Google Tag Manager',
+                        'SalesForce CRMs', 'Customer Service',
+                        'Linux', 'Docker', 'Virtualization'
+                    ],
+                    datasets: [{
+                        label: 'Skill Proficiency',
+                        data: [90, 95, 90, 85, 90, 85, 90, 80, 95, 75, 70, 70],
+                        backgroundColor: [
+                            'rgba(59, 130, 246, 0.7)',
+                            'rgba(59, 130, 246, 0.7)',
+                            'rgba(59, 130, 246, 0.7)',
+                            'rgba(59, 130, 246, 0.7)',
+                            'rgba(22, 163, 74, 0.7)',
+                            'rgba(22, 163, 74, 0.7)',
+                            'rgba(22, 163, 74, 0.7)',
+                            'rgba(249, 115, 22, 0.7)',
+                            'rgba(249, 115, 22, 0.7)',
+                            'rgba(107, 114, 128, 0.7)',
+                            'rgba(107, 114, 128, 0.7)',
+                            'rgba(107, 114, 128, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(59, 130, 246, 1)',
+                            'rgba(59, 130, 246, 1)',
+                            'rgba(59, 130, 246, 1)',
+                            'rgba(59, 130, 246, 1)',
+                            'rgba(22, 163, 74, 1)',
+                            'rgba(22, 163, 74, 1)',
+                            'rgba(22, 163, 74, 1)',
+                            'rgba(249, 115, 22, 1)',
+                            'rgba(249, 115, 22, 1)',
+                            'rgba(107, 114, 128, 1)',
+                            'rgba(107, 114, 128, 1)',
+                            'rgba(107, 114, 128, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                             callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.x !== null) {
+                                        let value = context.parsed.x;
+                                        if (value >= 90) label += 'Advanced';
+                                        else if (value >= 75) label += 'Proficient';
+                                        else label += 'Experienced';
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 100,
+                             ticks: {
+                                display: false
+                            },
+                            grid: {
+                                display: false
+                            }
+                        },
+                        y: {
+                             ticks: {
+                                color: '#1f2937',
+                                font: {
+                                    size: 14
+                                }
+                            },
+                             grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
